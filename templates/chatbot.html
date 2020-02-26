@@ -1,0 +1,224 @@
+
+<html>
+    <head>
+        <title>Heart bot</title>
+        <script src="https://sdk.amazonaws.com/js/aws-sdk-2.41.0.min.js"></script>
+        <link rel="stylesheet" href="./css/chat.css">
+   <style language="text/css">
+        input#wisdom {
+            padding: 4px;
+            font-size: 1em;
+            width: 400px
+        }
+        
+    input::placeholder {
+        color: #ccc;
+        font-style: italic;
+    }
+
+    p.userRequest {
+        margin: 4px;
+        padding: 4px 10px 4px 10px;
+        border-radius: 4px;
+        min-width: 50%;
+        max-width: 85%;
+        float: left;
+        background-color: #7d7;
+    }
+
+    p.lexResponse {
+        margin: 4px;
+        padding: 4px 10px 4px 10px;
+        border-radius: 4px;
+        text-align: right;
+        min-width: 50%;
+        max-width: 85%;
+        float: right;
+        background-color: #bbf;
+        font-style: italic;
+    }
+
+    p.lexError {
+        margin: 4px;
+        padding: 4px 10px 4px 10px;
+        border-radius: 4px;
+        text-align: right;
+        min-width: 50%;
+        max-width: 85%;
+        float: right;
+        background-color: #f77;
+    }
+   </style>
+   
+    <script src="{{ url_for('static', filename = 'js/jquery-1.11.2.min.js') }}"></script> 
+    {% include 'nav_patient.html' %} 
+
+    
+     
+    
+ <body style="background-image:url({{ url_for('static', filename = 'bg_3.jpg') }});background-size:cover;">      
+ <div id="includedContent">
+
+ 
+ <div class="container main-wrapper" style="max-width:31%; max-height:50%;padding-top: 100px;">
+     <div class="contert-wrapper pb-15">                   
+    <h1 style="text-align:  left">Heart bot</h1>
+    <p style="width: 400px">
+        This little chatbot shows how easy it is to incorporate
+    </p>
+    <div id="conversation" style="width: 400px; height: 400px; border: 1px solid #ccc; background-color: #eee; padding: 4px; overflow: scroll"></div>
+    <form id="chatform" style="margin-top: 10px" onsubmit="return pushChat();">
+        <input type="text" id="wisdom" size="80" value="" placeholder="I need care">
+    </form>
+    
+     <div class="row form-row">     
+          <form action="http://127.0.0.1:5000/predict_dis" method="POST">
+			<p>Value 1 <input type="text" name= "v1"/></p>
+			<p>Value 2 <input type="text" name= "v2"/></p>
+			<p>Value 3 <input type="text" name= "v3"/></p>
+			<p>Value 4 <input type="text" name= "v4"/></p>
+			<p>Value 5 <input type="text" name= "v5"/></p>
+			<p>Value 6 <input type="text" name= "v6"/></p>
+			<p>Value 7 <input type="text" name= "v7"/></p>
+			<p>Value 8 <input type="text" name= "v8"/></p>
+			<p>Value 9 <input type="text" name= "v9"/></p>
+			<p>Value 10 <input type="text" name= "v10"/></p>
+			<p>Value 11<input type="text" name= "v11"/></p>
+			<p>Value 12<input type="text" name= "v12"/></p>
+			<p>Value 13<input type="text" name= "v13"/></p>
+			<p>Value 14<input type="text" name= "v14"/></p>
+			<p>Value 15 <input type="text" name= "v15"/></p>
+			<p>Value 16 <input type="text" name= "v16"/></p>
+			<p>Value 17 <input type="text" name= "v17"/></p>
+			<p>Value 18 <input type="text" name= "v18"/></p>
+			<p>Value 19 <input type="text" name= "v19"/></p>
+			<p>Value 20 <input type="text" name= "v20"/></p>
+			<p>Value 21 <input type="text" name= "v21"/></p>
+			<p>Value 22 <input type="text" name= "v22"/></p>
+			<p>Value 23 <input type="text" name= "v23"/></p>
+			<p>Value 24 <input type="text" name= "v24"/></p>
+			<p>Value 25 <input type="text" name= "v25"/></p>
+			<p>Value 26 <input type="text" name= "v26"/></p>
+			<p>Value 27 <input type="text" name= "v27"/></p>
+			<p>Value 28 <input type="text" name= "v28"/></p>
+			<p>Value 29 <input type="text" name= "v29"/></p>
+			<p>Value 30 <input type="text" name= "v30"/></p>
+			<p>Value 31 <input type="text" name= "v31"/></p>
+			<p>Value 32 <input type="text" name= "v32"/></p>
+			<p>Value 33 <input type="text" name= "v33"/></p>
+			<p>Value 34 <input type="text" name= "v34"/></p>
+			<p>Value 35 <input type="text" name= "v35"/></p>
+			<p>Value 36 <input type="text" name= "v36"/></p>			
+            <button type="submit" name="save" >Predict</button>
+                                
+		</form>       
+    </div>
+   </div> 
+ </div>
+ </div>
+</body>
+
+    
+    
+    
+    
+    <script type="text/javascript">
+        // set the focus to the input box
+    document.getElementById("wisdom").focus();
+
+    // Initialize the Amazon Cognito credentials provider
+    AWS.config.region = 'eu-west-1'; // Region
+    AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+        IdentityPoolId: 'eu-west-1:484184af-07ed-4665-a5d1-ef9e96a8885e'
+});
+
+    var lexruntime = new AWS.LexRuntime();
+    var lexUserId = 'chatbot-demo' + Date.now();
+    var sessionAttributes = {};
+
+    function pushChat() {
+
+        // if there is text to be sent...
+        var wisdomText = document.getElementById('wisdom');
+        if (wisdomText && wisdomText.value && wisdomText.value.trim().length > 0) {
+
+            // disable input to show we're sending it
+            var wisdom = wisdomText.value.trim();
+            wisdomText.value = '...';
+            wisdomText.locked = true;
+
+            // send it to the Lex runtime
+            var params = {
+                botAlias: '$LATEST',
+                botName: 'BookTrip',
+                inputText: wisdom,
+                userId: lexUserId,
+                sessionAttributes: sessionAttributes
+            };
+            showRequest(wisdom);
+            lexruntime.postText(params, function(err, data) {
+                if (err) {
+                    console.log(err, err.stack);
+                    showError('Error:  ' + err.message + ' (see console for details)')
+                }
+                if (data) {
+                    // capture the sessionAttributes for the next cycle
+                    sessionAttributes = data.sessionAttributes;
+                    // show response and/or error/dialog status
+                    showResponse(data);
+                }
+                // re-enable input
+                wisdomText.value = '';
+                wisdomText.locked = false;
+            });
+        }
+        // we always cancel form submission
+        return false;
+    }
+
+    function showRequest(daText) {
+
+        var conversationDiv = document.getElementById('conversation');
+        var requestPara = document.createElement("P");
+        requestPara.className = 'userRequest';
+        requestPara.appendChild(document.createTextNode(daText));
+        conversationDiv.appendChild(requestPara);
+        conversationDiv.scrollTop = conversationDiv.scrollHeight;
+    }
+
+    function showError(daText) {
+
+        var conversationDiv = document.getElementById('conversation');
+        var errorPara = document.createElement("P");
+        errorPara.className = 'lexError';
+        errorPara.appendChild(document.createTextNode(daText));
+        conversationDiv.appendChild(errorPara);
+        conversationDiv.scrollTop = conversationDiv.scrollHeight;
+    }
+
+    function showResponse(lexResponse) {
+
+        var conversationDiv = document.getElementById('conversation');
+        var responsePara = document.createElement("P");
+        responsePara.className = 'lexResponse';
+        if (lexResponse.message) {
+            responsePara.appendChild(document.createTextNode(lexResponse.message));
+            responsePara.appendChild(document.createElement('br'));
+        }
+        if (lexResponse.dialogState === 'ReadyForFulfillment') {
+            responsePara.appendChild(document.createTextNode(
+                'Ready for fulfillment'));
+            // TODO:  show slot values
+        } else {
+            responsePara.appendChild(document.createTextNode(
+                '(' + lexResponse.dialogState + ')'));
+        }
+        conversationDiv.appendChild(responsePara);
+        conversationDiv.scrollTop = conversationDiv.scrollHeight;
+    }
+</script>
+   
+
+
+
+

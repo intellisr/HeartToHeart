@@ -1,0 +1,64 @@
+
+<html>
+    <head>
+    <script src="{{ url_for('static', filename = 'js/jquery-1.11.2.min.js') }}"></script> 
+    </head>
+    {% include 'nav_Admin.html' %}
+    
+  <body style="background-image:url({{ url_for('static', filename = 'bg_3.jpg') }});background-size:cover;">       
+ <div id="includedContent"></div>
+    
+    
+<div class="container main-wrapper" style="max-height:50%;padding-top: 100px;">
+        <div class="contert-wrapper pb-15">
+            <h1 class="title pb-20 pr-30" style="color:red;">List Doctors</h1>
+<table class="table table-hover">
+    <thead class="info">
+      <tr>
+        <th>Doctor Ref No</th>
+        <th>Password</th>
+        <th>Name</th>
+        <th>Specialty</th>
+        <th>Hospital</th>
+        <th>Mobile No</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>123</td>
+        <td>Doe</td>
+        <td>test</td>
+        <td>test</td>
+        <td>+94077253434</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>123</td>
+        <td>Moe</td>
+        <td>test</td>
+        <td>test</td>
+        <td>+94077253434</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>ssd123</td>
+        <td>Dooley</td>
+        <td>test</td>
+        <td>test</td>
+        <td>+94077253434</td>
+      </tr>
+    </tbody>
+  </table>
+
+            <div class="row">
+                  <div class="col-md-12">
+                           <button type="button" class="bx-but bx-save" name="save" onclick="" >View</button>
+                   </div>                                   
+            </div>
+       
+           </div>
+        </div>      
+    </body>
+</html>
+

@@ -1,0 +1,50 @@
+<html>
+    <head>
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/home.css') }}">
+    <script src="{{ url_for('static', filename = 'js/jquery-1.11.2.min.js') }}"></script> 
+    </head>
+    {% include 'nav_Login.html' %}
+    
+  <body style="background-image:url({{ url_for('static', filename = 'bg_3.jpg') }});background-size:cover;">        
+      
+        <div class="bdiv">
+			<div class="col-md-12 heading-section ftco-animate p-4 p-lg-5">
+			            <h2 class="mb-4">We Are <span>Mediplus</span> A Medical Clinic</h2>
+			            <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
+			            <p> <a href="#" class="btn btn-secondary py-3 px-4">Contact us</a></p>
+			          </div>
+			
+			<div class="col_w460 float_l">
+            	<h2>Our Services</h2>
+            	<div class="cleaner h20"></div>
+        	</div>
+			
+			<div>
+							<UL><img src="img/ambulance.png" width="80" height="80">
+			                <h4>Emergency Services</h4>
+			                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
+			              </div>
+			         
+			              <div>
+						  <UL><img src="img/doctor1.png" width="80" height="80">
+			                <h4>Qualified Doctors</h4>
+			                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
+			              </div>
+			           
+			              <div>
+						  <UL><img src="img/24-hours.png" width="80" height="80">
+			                <h4>24 Hours Service</h4>
+			                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
+			              </div>
+						  
+						  <div>
+						  <UL><img src="img/stethoscope.png" width="80" height="80">
+			                <h4>Outdoors Checkup</h4>
+			                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
+			              </div>
+          
+        </div>
+</html>
+
+
+

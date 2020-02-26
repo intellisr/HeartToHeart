@@ -1,0 +1,36 @@
+<!Doctype html>
+<html>
+    <head>
+      <meta charset="UTF-8">
+        <link rel="stylesheet" href="{{ url_for('static', filename = 'css/bootstrap.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename = 'css/main.css') }}.">
+        <link href="{{ url_for('static', filename = 'css/custom/normalize.css') }}" rel="stylesheet" />
+        <link href="{{ url_for('static', filename = 'css/custom/button.css') }}" rel="stylesheet" />
+        <link href="{{ url_for('static', filename = 'css/custom/common.css') }}" rel="stylesheet" />
+        <link href="{{ url_for('static', filename = 'css/custom/mainmenu.css') }}" rel="stylesheet" />
+        <link href="{{ url_for('static', filename = 'css/custom/form.css') }}" rel="stylesheet" />
+        <link href="{{ url_for('static', filename = 'css/custom/accordion.css') }}" rel="stylesheet" />
+    </head>
+          
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header navbar-left">
+                <img src="{{ url_for('static', filename = 'h3.png') }}" style="width:100px;height:70px">
+            </div>
+            <div class="navbar-header navbar-left pr-30">
+                <h1 class="navbar white pt-20">Heart to Heart</h1>
+            </div>
+           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav pt-20 right">
+                    <li><a href="{{url_for('patientHome')}}" >Home</a></li>
+                    <li><a href="{{url_for('exercises')}}">Exercises</a></li>
+					<li><a href="{{url_for('risk')}}">Risk</a></li>
+					<li><a href="{{url_for('chat')}}">Chat Bot</a></li>
+					<li><a href="{{url_for('meal')}}">Meal Plan</a></li>
+                    <li><a href="{{url_for('logout')}}">Logout</a></li>
+                </ul>       
+            </div>
+        </div> 
+    </nav>
+
+

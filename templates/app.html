@@ -1,0 +1,25 @@
+<html>
+    <head>
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/home.css') }}">
+    <script src="{{ url_for('static', filename = 'js/jquery-1.11.2.min.js') }}"></script> 
+    </head>
+    {% include 'nav_Login.html' %}
+    
+  <body style="background-image:url({{ url_for('static', filename = 'bg_3.jpg') }});background-size:cover;">     
+    <div id="includedContent"></div>
+      
+        <div class="bdiv">
+            <div class="insidediv">
+                <div class="col_fw">
+            <h5><b>Welcome to MediCare</b></h5><br>
+			<I><h3 class="mb-4">Your health is our<br>Highest Priority</h3></I><br>
+	        <I><p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.
+				Separated they live in Bookmarksgrove.</p></I>   
+          </div>
+                
+            </div>
+        </div>
+</html>
+
+
+

@@ -1,0 +1,110 @@
+
+<html>
+    <head>
+    <script src="{{ url_for('static', filename = 'js/jquery-1.11.2.min.js') }}"></script> 
+    </head>
+    {% include 'nav_patient.html' %}
+    
+  <body style="background-image:url({{ url_for('static', filename = 'bg_3.jpg') }});background-size:cover;">      
+ <div id="includedContent"></div>
+        <div class="container main-wrapper" style="max-width:61%; max-height:50%;padding-top: 100px;">
+            <div class="contert-wrapper pb-15">      
+                <h1 class="title pb-20 pr-30" style="color:red;">Risk Prediction</h1>
+
+            <form action ="http://localhost:5000/kalpana" method = "post"> 
+                
+                                    <div class="row form-row">    
+                                        <div class="col-md-4 input-layout col-md-offset-2">
+                                            <h4 class="title">Age</h4>
+                                            <input type="number" class="" name="age" value="">
+                                        </div>
+                                        
+                                        <div class="col-md-4 input-layout col-md-offset-2">
+                                            <h6 class="title">Original Level : test</h6>
+                                        </div>
+                                        
+                                    </div>
+                                    
+                                    <div class="row form-row">    
+                                        <div class="col-md-4 input-layout col-md-offset-2">
+                                            <h4 class="title">S.B.P</h4>
+                                            <input type="number" class="" name="sbp" value="">
+                                        </div>                                        
+                                    </div>    
+                                                                                                        
+                                    <div class="row form-row">     
+                                        <div class="col-md-4 col-md-offset-2" style="width:100px">
+                                            <h4 class="title">Gender</h4>
+                                        </div>
+                                        <div class="col-md-4 col-md-offset-2">
+                                            <input type="radio" class="pr30" name="gender"
+                                                   value="1"> Male 
+                                             <input type="radio" name="gender"
+                                            value="0"> Female
+                                        </div>
+                                    </div>
+                                      
+                                    <div class="row form-row">     
+                                        <div class="col-md-4 col-md-offset-2" style="width:100px">
+                                            <h4 class="title">Smoke</h4>
+                                        </div>
+                                        <div class="col-md-4 col-md-offset-2">
+                                            <input type="radio" class="pr30" name="Somke"
+                                                   value="1"> Yes 
+                                             <input type="radio" name="Smoke"
+                                            value="0"> No
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row form-row">     
+                                        <div class="col-md-4 col-md-offset-2">
+                                            <h4 class="title">Blood Pressure Medicated</h4>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <input type="radio" class="pr30" name="blood"
+                                                   value="1"> Yes 
+                                             <input type="radio" name="Smoke"
+                                            value="0"> No
+                                        </div>
+                                    </div>
+                                        
+                                     <div class="row form-row">     
+                                        <div class="col-md-4 col-md-offset-2" style="width:100px">
+                                            <h4 class="title">Diabetics</h4>
+                                        </div>
+                                        <div class="col-md-4 col-md-offset-2">
+                                            <input type="radio" class="pr30" name="diabet"
+                                                   value="1"> Yes 
+                                             <input type="radio" name="Smoke"
+                                            value="0"> No
+                                        </div>
+                                    </div>   
+                                    
+                                     <div class="panel panel-default" id="userEdit">
+                                        <div class="panel-heading">
+                                            <h4 class="title">Upload your report</h4>
+                                            </br>
+                                            <div class="row">
+                                                   <div class="col-md-4">
+                                                            <input type="file" name="image" id="image">
+                                                  </div>                      
+                                            </div>
+                                        </div>
+                                      </div>                  
+
+                                
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <button type="submit" class="bx-but bx-save" name="save" onclick="" >Predict</button>
+                                        </div>                                   
+                                    </div>
+                
+                
+                    </form>
+       
+           </div>
+        </div>
+    </body>
+</html>
+
+

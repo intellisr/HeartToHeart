@@ -1,0 +1,76 @@
+   .img{
+                width: 150px;
+                height: 100px;
+                margin-left: 8px;
+                margin-top: -40px;
+            }
+            h1{
+                font-size: 30px;
+            }
+            label{
+                width: 530px;
+                display: inline-block;
+                text-align: left;
+            }
+            .a{
+                color: white;
+                float: right;
+                font-size: 20px;
+                margin-top: 30px;
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+            .bdiv{
+                padding: 130px 20px 20px 20px;
+                background-size: cover;
+                height: 400px;
+                text-align: center;
+            }
+            input{
+                width: 250px;
+                height: 30px;
+                border-color: #e60000;
+                font-size: 20px;
+                text-align: left;
+                background-color: grey;
+            }
+            ::placeholder{
+                color: white;
+                opacity: 1;
+            }
+            .cdiv{
+                margin: 40px 20px 20px 40px;
+            }
+            .button2{
+                height: 40px;
+                width: 150px;
+                font-size: 15px;
+                border-color: #e60000;
+                background-color: #e60000;
+                color: white;
+                opacity: 1;
+            }
+            .buttondiv{
+                margin-top: 50px;
+            }
+            .insidediv{
+                height: 520px;
+                width: 500px;
+                margin: 0 auto;
+                background-color: white;
+                padding: 10px 10px 10px 10px;
+                opacity: 0.7;
+            }
+            th{
+                background-color: navy;
+                color: white;
+            }
+            td{
+                background-color: peachpuff;
+                border: 1px solid navy; 
+                border-collapse: collapse;
+            }
+            table{
+                table-layout: auto;
+                width: 100%;
+            }

@@ -1,0 +1,92 @@
+
+<html>
+    <head>
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/dt.css') }}">
+    <script src="{{ url_for('static', filename = 'js/jquery-1.11.2.min.js') }}"></script> 
+    </head>
+    {% include 'nav_patient.html' %}
+    
+  <body style="background-image:url({{ url_for('static', filename = 'bg_3.jpg') }});background-size:cover;">      
+ <div id="includedContent"></div>
+        
+   <div class="container main-wrapper" style="max-height:50%;padding-top: 100px;">
+     <div class="contert-wrapper pb-15">                
+            <h1 class="title pb-20 pr-30" style="color:red;">Disease Manager</h1>
+                
+                                    <div class="row form-row">
+                                        
+                                        <div class="col-sm-4 ">
+                                            <h4 class="title">Disease ID</h4>
+                                            <input type="text" class="" name="fname" value="">
+                                        </div>
+                                        
+                                        <div class="col-sm-4 ">
+                                            <h4 class="title">Disease Name</h4>
+                                            <input type="text" class="" name="fname" value="">
+                                        </div>
+                                        
+                                        <div class="col-sm-4 ">
+                                            <h4 class="title">Symptoms</h4>
+                                            <input type="text" class="" name="fname" value="">
+                                        </div>
+                                        
+                                    </div>
+            
+                                    <div class="row form-row">
+                                        
+                                        <div class="col-sm-3 ">
+                                                <button type="button" class="bx-but bx-default" name="save" onclick="" >Add</button>
+                                        </div>
+                                        
+                                        <div class="col-sm-3 ">
+                                                <button type="button" class="bx-but bx-back center" name="save" onclick="" >Update</button>
+                                        </div>
+                                        
+                                        <div class="col-sm-3 ">
+                                                <button type="button" class="bx-but bx-save" name="save" onclick="" >Delete</button>
+                                        </div>
+                                        
+                                    </div>
+            
+            
+            <table class="table table-hover">
+    <thead class="info">
+      <tr>
+        <th><input type="checkbox" /> all</th>
+        <th>Disease ID</th>
+        <th>Disease Name</th>
+        <th>Symptoms</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+         <td><input type="checkbox" /></td>
+        <td>1</td>
+        <td>test</td>
+        <td>test</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" /></td>
+        <td>2</td>
+        <td>test</td>
+        <td>test</td>
+      </tr>
+      <tr>
+         <td><input type="checkbox" /></td> 
+        <td>3</td>
+        <td>test</td>
+        <td>test</td>
+      </tr>
+    </tbody>
+  </table>
+         
+      </div>
+   </div>   
+    </body>
+</html>
+
+
+
+
+
+

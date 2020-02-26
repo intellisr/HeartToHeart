@@ -1,0 +1,83 @@
+
+<html>
+    <head>
+         <script src="{{ url_for('static', filename = 'js/jquery-1.11.2.min.js') }}"></script>   
+    </head>
+    
+    {% include 'nav_Login.html' %}
+     
+    
+ <body style="background-image:url({{ url_for('static', filename = 'bg_3.jpg') }});background-size:cover;">     
+ <div id="includedContent"></div>
+ 
+<div class="container main-wrapper" style="max-width:45%; max-height:50%;padding-top: 100px;">
+        <div class="contert-wrapper pb-15">
+            <h1 class="title pb-20 pr-30" style="color:red;">Register Doctor</h1>
+
+            <form action ="http://localhost:5000/registerDoc" method = "post"> 
+                
+                                    <div class="row form-row">     
+                                        <div class="col-md-4 input-layout col-md-offset-2">
+                                            <h4 class="title">Doctor Ref No</h4>
+                                            <input type="text" class="" name="drn" value="" >
+                                        </div>
+                                        
+                                        <div class="col-md-4 input-layout ">
+                                            <h4 class="title">Password</h4>
+                                            <input type="password" class="" name="password" value="">
+                                        </div>
+                                    </div> 
+
+                                    <div class="row form-row">    
+                                        <div class="col-md-4 input-layout col-md-offset-2">
+                                            <h4 class="title">Name</h4>
+                                            <input type="text" class="" name="name" value="">
+                                        </div>
+                                        
+                                        <div class="col-md-4 input-layout">
+                                            <h4 class="title">Specialty</h4>
+                                            <input type="text" class="datepick" name="spec" value="">
+                                        </div>
+                                    </div>                              
+                                    
+                                    <div class="row form-row">     
+                                        <div class="col-md-4 col-md-offset-2" style="width:100px">
+                                            <h4 class="title">Gender</h4>
+                                        </div>
+                                        <div class="col-md-4 col-md-offset-2">
+                                            <input type="radio" class="pr30" name="gender"
+                                                   value="Male"> Male 
+                                             <input type="radio" name="gender"
+                                            value="Female"> Female
+                                        </div>
+                                    </div>
+                                                       
+                                    <div class="row form-row">     
+                                        <div class="col-md-4 input-layout col-md-offset-2">
+                                            <h4 class="title">Telephone Number</h4>
+                                            <input type="text" name="tel_no" value=>
+                                        </div>
+                                        
+                                        <div class="col-md-4 input-layout ">
+                                            <h4 class="title">Hospital</h4>
+                                            <input type="text" name="hospital" value=>
+                                        </div>  
+                                    </div>                               
+                                
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <button type="submit" class="bx-but bx-save" name="save" >Register</button>
+                                        </div>                                   
+                                    </div>
+                    </form>
+                
+                <div class="alert-warning" id="error"></div>
+                <div class="alert-success" id="success"></div>
+                
+            
+       
+           </div>
+        </div>      
+    </body>
+</html>
+

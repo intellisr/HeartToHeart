@@ -1,0 +1,36 @@
+<html>
+    <head>
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/home.css') }}">
+    <script src="{{ url_for('static', filename = 'js/jquery-1.11.2.min.js') }}"></script> 
+    </head>
+    {% include 'nav_Login.html' %}
+    
+  <body style="background-image:url({{ url_for('static', filename = 'bg_3.jpg') }});background-size:cover;">      
+    <div id="includedContent"></div>
+      
+        <div class="bdiv">
+            <div class="insidediv">
+                <center>
+            <B><h2 class="mb-4">Contact Us</h2></B><br>
+            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia</p><br>
+         
+          		<B><h4 class="mb-4">Address</h4></B><br>
+	            <p>198 West 21th Street, Suite 721 New York NY 10016</p><br>
+
+          		<B><h4 class="mb-4">Contact Number</h4></B><br>
+	            <p><a href="tel://1234567920">+ 1235 2355 98</a></p><br>
+
+          		<B><h4 class="mb-4">Email Address</h4></B><br>
+	            <p><a href="mailto:info@yoursite.com">info@yoursite.com</a></p><br>
+	        
+          		<B><h4 class="mb-4">Website</h4></B><br>
+	            <p><a href="#">yoursite.com</a></p>
+				
+				</center>
+                
+            </div>
+        </div>
+</html>
+
+
+

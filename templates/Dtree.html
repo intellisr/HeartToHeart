@@ -1,0 +1,95 @@
+
+<html>
+    <head>
+    <script src="{{ url_for('static', filename = 'js/jquery-1.11.2.min.js') }}"></script> 
+    </head>
+    {% include 'nav_patient.html' %}
+    
+  <body style="background-image:url({{ url_for('static', filename = 'bg_3.jpg') }});background-size:cover;">         
+ <div id="includedContent"></div>
+        
+   <div class="container main-wrapper" style="max-width:61%; max-height:50%;padding-top: 100px;">
+     <div class="contert-wrapper pb-15"> 
+         <h1 class="title pb-20 pr-30" style="color:red;">Decision Tree</h1>
+         
+         <ul class="nav nav-tabs">
+         <li class="active " onclick="aload();"><a href="#">Ischemic heart disease</a></li>
+         <li onclick="bload();"><a href="#">Heart failure</a></li>
+         <li onclick="cload();"><a href="#">Cardiomy opathy</a></li>
+          </ul>
+         
+         <div class="row" id="a">                                                
+           <div class="col-md-4 ">                             
+            <img src="{{ url_for('static', filename = 'a.jpeg') }}" class="img-rounded" alt="Ischemic heart disease" style="width:300px; height:300px;">
+           </div>
+           <div class="col-lg-5">                             
+               <p>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
+               <p>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
+               <p>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
+               <p>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
+               <p>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
+               <p>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
+           </div>  
+         </div>
+         
+         <div class="row" id="b">                                                
+           <div class="col-md-4 ">                             
+            <img src="{{ url_for('static', filename = 'b.jpeg') }}" class="img-rounded" alt="Ischemic heart disease" style="width:300px; height:300px;">
+           </div>
+           <div class="col-lg-5">                             
+               <p>dddddddddddddddddddddddddddddddddddddddddddddddddd</p>
+               <p>dddddddddddddddddddddddddddddddddddddddddddddddddd</p>
+               <p>dddddddddddddddddddddddddddddddddddddddddddddddddd</p>
+               <p>dddddddddddddddddddddddddddddddddddddddddddddddddd</p>
+               <p>dddddddddddddddddddddddddddddddddddddddddddddddddd</p>
+               <p>dddddddddddddddddddddddddddddddddddddddddddddddddd</p>
+               
+           </div>  
+         </div>
+         
+         <div class="row" id="c">                                                
+           <div class="col-md-4 ">                             
+            <img src="{{ url_for('static', filename = 'c.jpeg') }}" class="img-rounded" alt="Ischemic heart disease" style="width:300px; height:300px;">
+           </div>
+           <div class="col-lg-5">                             
+               <p>ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc</p>
+               <p>ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc</p>
+               <p>ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc</p>
+               <p>ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc</p>
+               <p>ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc</p>
+               <p>ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc</p>
+           </div>  
+         </div>
+         
+      </div>
+   </div> 
+    
+    </body>
+</html>
+
+<script>
+    
+    $(function(){       
+        $('#b').hide();
+        $('#c').hide();          
+    });
+    
+    function aload(){
+        $('#a').show();
+        $('#b').hide();
+        $('#c').hide();   
+    }
+    
+    function bload(){
+        $('#b').show();
+        $('#a').hide();
+        $('#c').hide(); 
+    }
+    
+    function cload(){
+        $('#c').show();
+        $('#b').hide();
+        $('#a').hide();   
+    }
+    
+ </script>  
