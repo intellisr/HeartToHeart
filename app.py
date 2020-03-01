@@ -177,12 +177,15 @@ def loginAdmin():
    sql_select_query = "select * from admin where adminId = %s and Password = %s"
    cursor.execute(sql_select_query, (username,pw))
    record = cursor.fetchall()
-   for x in record:
-       if x is None:
-           return redirect(url_for('logAdmin')) 
-       else:    
-           #session['Uid']=record[0] 
-           return redirect(url_for('adminHome'))  
+   if record is None:
+       return redirect(url_for('logAdmin'))
+   else:
+       for x in record:
+           if x is None:
+               return redirect(url_for('logAdmin')) 
+           else:    
+               #session['Uid']=record[0] 
+               return redirect(url_for('adminHome'))  
    
     
 @app.route('/loginPatient',methods = ['POST', 'GET'])
@@ -193,11 +196,11 @@ def loginPatient():
       pw = request.form['pwd']
               
    cursor = mydb.cursor(buffered=True)
-   sql_select_query = "select * from admin where adminId = %s and Password = %s"
+   sql_select_query = "select * from patient where email = %s and Password = %s"
    cursor.execute(sql_select_query, (username,pw))
    record = cursor.fetchall()
    if record is None:
-       return redirect(url_for('patientHome'))
+       return redirect(url_for('logPat'))
    else:
        for x in record:
            if x is None:
@@ -215,15 +218,18 @@ def loginDoctor():
       pw = request.form['pwd']
               
    cursor = mydb.cursor(buffered=True)
-   sql_select_query = "select * from admin where adminId = %s and Password = %s"
+   sql_select_query = "select * from doctor where drn = %s and Password = %s"
    cursor.execute(sql_select_query, (username,pw))
    record = cursor.fetchall()
-   for x in record:
-       if x is None:
-           return redirect(url_for('logDoc')) 
-       else:    
-           #session['Uid']=record[0] 
-           return redirect(url_for('doctorHome'))  
+   if record is None:
+       return redirect(url_for('logDoc'))
+   else:
+       for x in record:
+           if x is None:
+               return redirect(url_for('logDoc')) 
+           else:    
+               #session['Uid']=record[0] 
+               return redirect(url_for('doctorHome'))  
 
 @app.route('/registerDoc',methods = ['POST', 'GET'])
 def registerDoc():
