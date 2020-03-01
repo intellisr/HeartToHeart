@@ -2,17 +2,53 @@ from flask import Flask, render_template, redirect, url_for, request ,session,js
 import mysql.connector
 import joblib
 import pytesseract
-from ruwanthi import proccessImg
+from sklearn.svm import SVC
+import joblib
+
+from PIL import Image
+import pytesseract
+import cv2
+import os
+import re
+
+pytesseract.pytesseract.tesseract_cmd='C://Program Files/Tesseract-OCR/tesseract.exe'
+#from ruwanthi import proccessImg
+
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 app = Flask(__name__)
 
+def proccessImg(file):
 
+   if request.method == 'POST':
+
+        image = cv2.imread(file)
+        gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+        gray = cv2.threshold(gray, 0, 255,cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
+        #gray = cv2.medianBlur(gray, 3)
+
+        filename = "{}.png".format(' temp')
+        cv2.imwrite(filename, gray)
+        text = pytesseract.image_to_string(cv2.imread(filename))
+        os.remove(filename)
+
+        TC=re.search(r'CHOLESTEROL(.*?)mg/dL', text).group(1)
+        TC=eval(re.findall("\d+\.\d+",TC)[0])
+
+        HDL=re.search(r'H.D.L(.*?)mg/dL', text).group(1)
+        HDL=eval(re.findall("\d+\.\d+",HDL)[0])
+
+        # show the output images
+        cv2.imwrite("static/output-1.png", image)
+        cv2.imwrite("static/output-2.png", gray)
+        return TC,HDL
 #mysql connection
 mydb = mysql.connector.connect(
   host="localhost",
   user="root",
   passwd="",
-  database="hart"
+  database="heart"
 )
 
 mycursor = mydb.cursor()
@@ -43,7 +79,7 @@ import keras.optimizers as optimizers
 from keras.layers import Dropout
 
 def load_model():
-
+    K.clear_session()
     model = models.Sequential()
     model.add(layers.Dense(128, input_dim=8, kernel_initializer='normal', activation='relu'))
     model.add(Dropout(0.2))
@@ -55,8 +91,6 @@ def load_model():
 
     model.load_weights('Predictions.h5')
     return model
-
-
 
 @app.route("/")
 def main():
@@ -142,7 +176,7 @@ def diseasePatient():
 @app.route('/exercises') 
 def exercises():    
 
-    return render_template('exercises.html')
+    return render_template('exercises.html',result ="enter data")
 
 @app.route('/risk') 
 def risk():    
@@ -193,7 +227,7 @@ def loginPatient():
       pw = request.form['pwd']
               
    cursor = mydb.cursor(buffered=True)
-   sql_select_query = "select * from admin where adminId = %s and Password = %s"
+   sql_select_query = "select * from patient where email = %s and password = %s"
    cursor.execute(sql_select_query, (username,pw))
    record = cursor.fetchall()
    if record is None:
@@ -215,7 +249,7 @@ def loginDoctor():
       pw = request.form['pwd']
               
    cursor = mydb.cursor(buffered=True)
-   sql_select_query = "select * from admin where adminId = %s and Password = %s"
+   sql_select_query = "select * from doctor where drn = %s and password = %s"
    cursor.execute(sql_select_query, (username,pw))
    record = cursor.fetchall()
    for x in record:
@@ -318,15 +352,17 @@ def predict_dis():
     result=algorithm.predict([[val1,val2,val3,val4,val5,val6,val7,val8,val9,val10,val11,val12,val13,val14,val15,val16,val17,val18,val19,val20,val21,val22,val23,val24,val25,val26,val27,val28,val29,val30,val31,val32,val33,val34,val35,val36]])
 
     #print(val1,val2,val3,val4,result)
-
     return "Type of The Heart Disease:"+str(result[0])
 
+@app.route('/test')
+def test():
+    return('Hello')
 
 @app.route('/kalpana',methods = ['POST', 'GET'])
 def kalpana():
     
     model=load_model()
-
+    print('Hello')
     User_json = request.json
     
     if request.method == 'POST':
@@ -334,11 +370,13 @@ def kalpana():
       gender = int(request.form['gender'])
       med = int(request.form['blood'])
       dia = int(request.form['diabet'])
-      smoke = int(request.form['smoke'])
+      smoke = int(request.form['Smoke'])
       sbp = int(request.form['sbp'])
-      
-    tc,hdl=proccessImg  
-
+      img=request.files['image']
+      img.save('output.PNG')
+      #print(img)
+    tc,hdl=proccessImg('output.PNG')
+    
     test_data=[gender,age,tc,hdl,sbp,smoke,med,dia]
 
     print(test_data)
@@ -371,9 +409,27 @@ def predict_mealPlan():
     #print(val1,val2,val3,val4,result)
 
     #return "PREDICTED MEAL PLAN:"+str(int(result[0]))
-    return render_template("meal_plan.html",result = str(int(result[0])))    
+    return render_template("meal_plan.html",result = str(int(result[0]))) 
+ 
+@app.route('/predict_exercises',methods=['GET','POST']) 
+def predict_exercises():    
+
+    data=request.form
+    val01=eval(data['gender1'])   #converting text into float
+    val02=eval(data['age1'])
+    val03=eval(data['risk1'])
+
+    algorithm=joblib.load('Exercises_SVM_model.sav')
+    #loading the trained algorithm
+    result=algorithm.predict([[val01,val02,val03]])
+
+    #print(val1,val2,val3,val4,result)
+
+    #return "PREDICTED MEAL PLAN:"+str(int(result[0]))
+    return render_template("exercises.html",result = str(int(result[0]))) 
         
 if __name__ == "__main__":
-    app.run()
+	app.run(debug=True)
+   
 
 

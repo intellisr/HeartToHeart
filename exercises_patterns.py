@@ -32,3 +32,8 @@ from sklearn.metrics import accuracy_score
 acc=accuracy_score(test_target,result)
 
 print('Accuracy:',acc)
+
+
+import joblib
+
+joblib.dump(algorithm,'Exercises_SVM_model.sav')
