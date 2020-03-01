@@ -48,7 +48,7 @@ mydb = mysql.connector.connect(
   host="localhost",
   user="root",
   passwd="",
-  database="heart"
+  database="hart"
 )
 
 mycursor = mydb.cursor()
@@ -134,23 +134,81 @@ def contact():
 @app.route("/adminHome")
 def adminHome():
     
-    return render_template('ViewDoctors.html')
+   cursor = mydb.cursor(buffered=True)
+   sql_select_query = "select * from doctor"
+   cursor.execute(sql_select_query)
+   record = cursor.fetchall()
+   if record:
+       return render_template('ViewDoctors.html',result=record)
+   else:
+       return render_template('ViewDoctors.html',result=[['There','is','no','data','to','retrive'],])
+              
+@app.route("/adminPatient")
+def adminPatient():
+    
+   cursor = mydb.cursor(buffered=True)
+   sql_select_query = "select * from patient"
+   cursor.execute(sql_select_query)
+   record = cursor.fetchall()
+   if record:
+       return render_template('ViewPatientAdmin.html',result=record)
+   else:
+       return render_template('ViewPatientAdmin.html',result=[['There','isnt','data','to','retrive'],])
+    
+    
 
 @app.route('/disease') 
-def disease():    
+def disease():
     
-    return render_template('disease.html')
+   cursor = mydb.cursor(buffered=True)
+   sql_select_query = "select * from disease"
+   cursor.execute(sql_select_query)
+   record = cursor.fetchall()
+   if record:
+       return render_template('disease.html',result=record)
+   else:
+       return render_template('disease.html',result=[['please','add','diseases'],])    
+
+
+@app.route('/addDisease',methods=['GET', 'POST']) 
+def addDisease():    
+    
+    if request.method == 'POST':
+      did = request.form['did']
+      name = request.form['name']
+      symp = request.form['symp']
+              
+    cursor = mydb.cursor(buffered=True)
+    sql = """INSERT INTO disease (id, name,symptomps) VALUES (%s, %s ,%s)"""
+    val = (did,name,symp)
+    cursor.execute(sql, val)
+    mydb.commit() 
+    return redirect(url_for('disease'))
 
 @app.route('/manPatient') 
-def manPatient():    
+def manPatient():
     
-    return render_template('ViewPatient.html')
+   cursor = mydb.cursor(buffered=True)
+   sql_select_query = "select * from patient"
+   cursor.execute(sql_select_query)
+   record = cursor.fetchall()
+   if record:
+       return render_template('ViewPatient.html',result=record)
+   else:
+       return render_template('ViewPatient.html',result={{'test','test','test','test','test','test'},})
 
 
 @app.route("/doctorHome")
 def doctorHome():
     
-    return render_template('ViewPatient.html')
+   cursor = mydb.cursor(buffered=True)
+   sql_select_query = "select * from patient"
+   cursor.execute(sql_select_query)
+   record = cursor.fetchall()
+   if record:
+       return render_template('ViewPatient.html',result=record)
+   else:
+       return render_template('ViewPatient.html',result={{'test','test','test','test','test','test'},})
 
 
 @app.route('/viewPatients') 
@@ -211,12 +269,15 @@ def loginAdmin():
    sql_select_query = "select * from admin where adminId = %s and Password = %s"
    cursor.execute(sql_select_query, (username,pw))
    record = cursor.fetchall()
-   for x in record:
-       if x is None:
-           return redirect(url_for('logAdmin')) 
-       else:    
-           #session['Uid']=record[0] 
-           return redirect(url_for('adminHome'))  
+   if record:
+       for x in record:
+           if x is None:
+               return redirect(url_for('logAdmin')) 
+           else:    
+               #session['Uid']=record[0] 
+               return redirect(url_for('adminHome'))  
+   else:
+       return redirect(url_for('logAdmin'))
    
     
 @app.route('/loginPatient',methods = ['POST', 'GET'])
@@ -227,18 +288,18 @@ def loginPatient():
       pw = request.form['pwd']
               
    cursor = mydb.cursor(buffered=True)
-   sql_select_query = "select * from patient where email = %s and password = %s"
+   sql_select_query = "select * from patient where email = %s and Password = %s"
    cursor.execute(sql_select_query, (username,pw))
    record = cursor.fetchall()
-   if record is None:
-       return redirect(url_for('patientHome'))
-   else:
+   if record:
        for x in record:
            if x is None:
                return redirect(url_for('logPat')) 
            else:    
                #session['Uid']=record[0] 
-               return redirect(url_for('patientHome'))
+               return redirect(url_for('patientHome'))       
+   else:
+       return redirect(url_for('logPat'))
 
  
 @app.route('/loginDoctor',methods = ['POST', 'GET'])
@@ -249,15 +310,19 @@ def loginDoctor():
       pw = request.form['pwd']
               
    cursor = mydb.cursor(buffered=True)
-   sql_select_query = "select * from doctor where drn = %s and password = %s"
+   sql_select_query = "select * from doctor where drn = %s and Password = %s"
    cursor.execute(sql_select_query, (username,pw))
    record = cursor.fetchall()
-   for x in record:
-       if x is None:
-           return redirect(url_for('logDoc')) 
-       else:    
-           #session['Uid']=record[0] 
-           return redirect(url_for('doctorHome'))  
+   if record:
+       for x in record:
+           if x is None:
+               return redirect(url_for('logDoc')) 
+           else:    
+               #session['Uid']=record[0] 
+               return redirect(url_for('doctorHome')) 
+       
+   else:
+        return redirect(url_for('logDoc'))
 
 @app.route('/registerDoc',methods = ['POST', 'GET'])
 def registerDoc():
@@ -429,7 +494,7 @@ def predict_exercises():
     return render_template("exercises.html",result = str(int(result[0]))) 
         
 if __name__ == "__main__":
-	app.run(debug=True)
+	app.run(debug=True, use_reloader=False)
    
 
 

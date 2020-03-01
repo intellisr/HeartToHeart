@@ -23,35 +23,18 @@
       </tr>
     </thead>
     <tbody>
+     {% for value in result %}
       <tr>
-        <td>1</td>
-        <td>123</td>
-        <td>Doe</td>
-        <td>john@example.com</td>
-        <td>+94077253434</td>
+        <td>{{ value[0] }}</td>
+        <td>{{ value[1] }}</td>
+        <td>{{ value[2] }}</td>
+        <td>{{ value[3] }}</td>
+        <td>{{ value[4] }}</td>
       </tr>
-      <tr>
-        <td>2</td>
-        <td>123</td>
-        <td>Moe</td>
-        <td>mary@example.com</td>
-        <td>+94077253434</td>
-      </tr>
-      <tr>
-        <td>3</td>
-        <td>ssd123</td>
-        <td>Dooley</td>
-        <td>july@example.com</td>
-        <td>+94077253434</td>
-      </tr>
+     {% endfor %}
     </tbody>
   </table>
 
-            <div class="row">
-                  <div class="col-md-12">
-                           <button type="button" class="bx-but bx-save" name="save" onclick="" >View</button>
-                   </div>                                   
-            </div>
        
            </div>
         </div>      
