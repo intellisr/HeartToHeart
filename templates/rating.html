@@ -1,0 +1,106 @@
+
+<html>
+    <head>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+            integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+            crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+    <script src="{{ url_for('static', filename = 'js/rating.js') }}"></script>    
+    </head>
+    {% include 'nav_patient.html' %}
+    
+  <body style="background-image:url({{ url_for('static', filename = 'bg_3.jpg') }});background-size:cover;">         
+ <div id="includedContent"></div>
+        
+   <div class="container main-wrapper" style="max-width:61%; max-height:50%;padding-top: 100px;">
+     <div class="contert-wrapper pb-15"> 
+        <div class="col-12">
+        <form action ="http://localhost:5000/saveRate" method = "post" id="dreg">
+        <h1 class="title pb-20 pr-30" style="color:red;">Please Rate Us</h1> 
+                <hr>
+            <div class="row">
+                <div class="col-12 col-md-6" style="font-size: 4em;">
+                    <label>By Quality</label>
+                    <div id="review1"></div>
+                </div>
+
+                <div class="col-12 col-md-4">
+                    <input type="text"  id="starsInput1" class="form-control form-control-sm" name="r1">
+                </div>
+
+            </div>
+            
+                <hr>
+            <div class="row">
+                <div class="col-12 col-md-6" style="font-size: 4em;">
+                    <label>By Service</label>
+                    <div id="review2"></div>
+                </div>
+
+                <div class="col-12 col-md-4">
+                    <input type="text"  id="starsInput2" class="form-control form-control-sm" name="r2">
+                </div>
+
+            </div>
+            
+                <hr>
+            <div class="row">
+                <div class="col-12 col-md-6" style="font-size: 4em;">
+                    <label>By Time</label>
+                    <div id="review3"></div>
+                </div>
+
+                <div class="col-12 col-md-4">
+                    <input type="text" id="starsInput3" class="form-control form-control-sm" name="r3">
+                </div>
+
+            </div>
+            
+                <hr>                
+            <div class="row">
+                <div class="col-md-12">
+                      <button type="submit" class="bx-but bx-save" name="save" >Rate</button>
+                </div>                                   
+            </div>
+            
+        </form>
+            
+         </div>
+         
+      </div>
+   </div> 
+    
+    </body>
+</html>
+
+<script>
+
+    $(function(){
+      $("#review1").rating();
+      $("#review2").rating();
+      $("#review3").rating();
+  });
+
+
+     $("#review1").rating({
+        "click": function (e) {
+            console.log(e);
+            $("#starsInput1").val(e.stars);
+        }
+    });
+    
+    $("#review2").rating({
+        "click": function (e) {
+            console.log(e);
+            $("#starsInput2").val(e.stars);
+        }
+    });
+    
+    $("#review3").rating({
+        "click": function (e) {
+            console.log(e);
+            $("#starsInput3").val(e.stars);
+        }
+    });
+ </script>  

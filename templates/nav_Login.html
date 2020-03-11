@@ -3,12 +3,13 @@
     <head>
         <link rel="stylesheet" href="{{ url_for('static', filename = 'css/bootstrap.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename = 'css/main.css') }}.">
-         <link href="{{ url_for('static', filename = 'css/custom/normalize.css') }}" rel="stylesheet" />
+        <link href="{{ url_for('static', filename = 'css/custom/normalize.css') }}" rel="stylesheet" />
         <link href="{{ url_for('static', filename = 'css/custom/button.css') }}" rel="stylesheet" />
         <link href="{{ url_for('static', filename = 'css/custom/common.css') }}" rel="stylesheet" />
         <link href="{{ url_for('static', filename = 'css/custom/mainmenu.css') }}" rel="stylesheet" />
         <link href="{{ url_for('static', filename = 'css/custom/form.css') }}" rel="stylesheet" />
         <link href="{{ url_for('static', filename = 'css/custom/accordion.css') }}" rel="stylesheet" />
+        <script src="{{ url_for('static', filename = 'js/bootstrap.min.js') }}"></script> 
     </head>
      
         <nav class="navbar navbar-inverse">
@@ -21,10 +22,17 @@
             </div>
            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav pt-20 right">
+                    <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">LOGIN
+                    <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
                     <li><a href="{{url_for('logPat')}}" >PATIENT</a></li>
 					<li><a href="{{url_for('logDoc')}}">DOCTOR</a></li>
                     <li><a href="{{url_for('logAdmin')}}">ADMIN</a></li>
+                    </ul>
+                    </li>                    
                     <li><a href="{{url_for('about')}}">ABOUT</a></li>
+                    <li><a href="{{url_for('viewRates')}}">RATINGS</a></li>
                     <li><a href="{{url_for('contact')}}">CONTACT</a></li>
                 </ul>       
             </div>
