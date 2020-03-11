@@ -12,22 +12,22 @@
    <div class="container main-wrapper" style="max-height:50%;padding-top: 100px;">
      <div class="contert-wrapper pb-15">                
             <h1 class="title pb-20 pr-30" style="color:red;">Disease Manager</h1>
-             <form action ="http://localhost:5000/addDisease" method = "post">   
+             <form action ="http://localhost:5000/addDisease" method = "post" name="form">   
                                     <div class="row form-row">
                                         
                                         <div class="col-sm-4 ">
                                             <h4 class="title">Disease ID</h4>
-                                            <input type="text" class="" name="did" value="">
+                                            <input type="text" id="did" name="did" value="">
                                         </div>
                                         
                                         <div class="col-sm-4 ">
                                             <h4 class="title">Disease Name</h4>
-                                            <input type="text" class="" name="name" value="">
+                                            <input type="text" id="dn"  name="name" value="">
                                         </div>
                                         
                                         <div class="col-sm-4 ">
                                             <h4 class="title">Symptoms</h4>
-                                            <input type="text" class="" name="symp" value="">
+                                            <input type="text" id="ds" name="symp" value="">
                                         </div>
                                         
                                     </div>
@@ -39,20 +39,21 @@
                                         </div>
                                         
                                         <div class="col-sm-3 ">
-                                                <button type="submit" class="bx-but bx-back center" name="save" onclick="" >Update</button>
+                                                <button type="button" class="bx-but bx-back center" name="save" onclick="update()" >Update</button>
                                         </div>
                                         
                                         <div class="col-sm-3 ">
-                                                <button type="button" class="bx-but bx-save" name="save" onclick="" >Delete</button>
+                                                <button type="button" class="bx-but bx-save" name="save" onclick="Delete()" >Delete</button>
                                         </div>
                                         
                                    </div>
+                                   
+                                        <p>{{msg}}</p>   
             
                   </form>
             <table class="table table-hover">
     <thead class="info">
       <tr>
-        <th><input type="checkbox" /> all</th>
         <th>Disease ID</th>
         <th>Disease Name</th>
         <th>Symptoms</th>
@@ -60,8 +61,7 @@
     </thead>
     <tbody>
     {% for value in result %}
-      <tr>
-      <td><input type="checkbox" /></td>        
+      <tr onclick="loadData({{value[0]}} ,'{{value[1]}}','{{value[2]}}')">       
         <td>{{ value[0] }}</td>
         <td>{{ value[1] }}</td>
         <td>{{ value[2] }}</td>
@@ -69,13 +69,49 @@
      {% endfor %}
     </tbody>
   </table>
- 
+    
       </div>
    </div>   
     </body>
 </html>
 
+<script>
 
+function loadData(v1,v2,v3){
+    $("#did").val(v1);
+    $("#did").prop("readonly", true);
+    $("#dn").val(v2);
+    $("#ds").val(v3);
+}
+
+function update(){
+    $.ajax({
+            url: '/updateDisease',
+            data: $('form').serialize(),
+            type: 'POST',
+            success: function(response) {
+                console.log(response);
+            },
+            error: function(error) {
+                console.log(error);
+            }
+        });
+}
+
+function Delete(){
+    $.ajax({
+            url: '/deleteDisease',
+            data: $('form').serialize(),
+            type: 'POST',
+            success: function(response) {
+                console.log(response);
+            },
+            error: function(error) {
+                console.log(error);
+            }
+        });
+}
+</script>
 
 
 
