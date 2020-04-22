@@ -2,6 +2,7 @@
 <html>
     <head>
     <script src="{{ url_for('static', filename = 'js/jquery-1.11.2.min.js') }}"></script> 
+    <script src="{{ url_for('static', filename = 'js/bootstrap.min.js') }}"></script>     
     </head>
     {% include 'nav_patient.html' %}
     
@@ -11,85 +12,30 @@
    <div class="container main-wrapper" style="max-width:61%; max-height:50%;padding-top: 100px;">
      <div class="contert-wrapper pb-15"> 
          <h1 class="title pb-20 pr-30" style="color:red;">Decision Tree</h1>
-            <h3 class="title pb-20 pr-30">Welcome {{result}}</h3>         
-         <ul class="nav nav-tabs">
-         <li class="active" onclick="aload();"><a href="#">Ischemic heart disease</a></li>
-         <li onclick="bload();"><a href="#">Heart failure</a></li>
-         <li onclick="cload();"><a href="#">Cardiomy opathy</a></li>
-          </ul>
-         
-         <div class="row" id="a">                                                
-           <div class="col-md-4 ">                             
-            <img src="{{ url_for('static', filename = 'a.jpeg') }}" class="img-rounded" alt="Ischemic heart disease" style="width:300px; height:300px;">
-           </div>
-           <div class="col-lg-5">                             
-               <p>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
-               <p>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
-               <p>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
-               <p>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
-               <p>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
-               <p>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
-           </div>  
-         </div>
-         
-         <div class="row" id="b">                                                
-           <div class="col-md-4 ">                             
-            <img src="{{ url_for('static', filename = 'b.jpeg') }}" class="img-rounded" alt="Ischemic heart disease" style="width:300px; height:300px;">
-           </div>
-           <div class="col-lg-5">                             
-               <p>dddddddddddddddddddddddddddddddddddddddddddddddddd</p>
-               <p>dddddddddddddddddddddddddddddddddddddddddddddddddd</p>
-               <p>dddddddddddddddddddddddddddddddddddddddddddddddddd</p>
-               <p>dddddddddddddddddddddddddddddddddddddddddddddddddd</p>
-               <p>dddddddddddddddddddddddddddddddddddddddddddddddddd</p>
-               <p>dddddddddddddddddddddddddddddddddddddddddddddddddd</p>
-               
-           </div>  
-         </div>
-         
-         <div class="row" id="c">                                                
-           <div class="col-md-4 ">                             
-            <img src="{{ url_for('static', filename = 'c.jpeg') }}" class="img-rounded" alt="Ischemic heart disease" style="width:300px; height:300px;">
-           </div>
-           <div class="col-lg-5">                             
-               <p>ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc</p>
-               <p>ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc</p>
-               <p>ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc</p>
-               <p>ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc</p>
-               <p>ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc</p>
-               <p>ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc</p>
-           </div>  
-         </div>
-         
+            <h3 class="title pb-20 pr-30">Welcome {{session['name']}}</h3>         
+     
+                {% for value in result %}         
+                <div class="container">  
+                  <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo{{ value[0] }}">{{ value[1] }}</button>
+                  <div id="demo{{ value[0] }}" class="collapse">
+                    <div class="col-md-4 ">                             
+                    <img src="{{ url_for('static', filename ='')}}{{value[0]}}.jpeg" class="img-rounded" alt="Ischemic heart disease" style="width:300px; height:300px;">
+                    </div>
+                    <div class="col-lg-5" style="width:600px;padding: 10px solid #000;word-break:break-all;">
+                    <h4>{{ value[3] }}</h4>
+                    </br></br>   
+                    <h3>Symptoms :</h3>
+                    </br>
+                    <h4>{{ value[2] }}<h4>
+                   </div> 
+                  </div>
+                </div>
+                </br>
+                </br>
+            {% endfor %}
+            </br>
       </div>
    </div> 
     
     </body>
 </html>
-
-<script>
-    
-    $(function(){       
-        $('#b').hide();
-        $('#c').hide();          
-    });
-    
-    function aload(){
-        $('#a').show();
-        $('#b').hide();
-        $('#c').hide();   
-    }
-    
-    function bload(){
-        $('#b').show();
-        $('#a').hide();
-        $('#c').hide(); 
-    }
-    
-    function cload(){
-        $('#c').show();
-        $('#b').hide();
-        $('#a').hide();   
-    }
-    
- </script>  

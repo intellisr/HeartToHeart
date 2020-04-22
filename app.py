@@ -9,7 +9,7 @@ from PIL import Image
 import cv2
 import os
 import re
-
+import urllib.request
 
 
 #mysql connection
@@ -40,6 +40,156 @@ app.secret_key = 'super secret key'
 app.config['SESSION_TYPE'] = 'filesystem'
 
 
+#codes for chatbot
+def convertTofloat(msg):
+    if msg=="yes":
+        return float(1)
+    else:    
+        return float(0)
+    
+def validateAnswers(intent,answer):
+    if intent=="q2":
+        session['q1']=convertTofloat(answer)        
+    elif intent=="q3":    
+        session['q2']=convertTofloat(answer)
+    elif intent=="q4":    
+        session['q3']=convertTofloat(answer)
+    elif intent=="q5":    
+        session['q4']=convertTofloat(answer)
+    elif intent=="q6":    
+        session['q5']=convertTofloat(answer)
+    elif intent=="q7":    
+        session['q6']=convertTofloat(answer)
+    elif intent=="q8":    
+        session['q7']=convertTofloat(answer)
+    elif intent=="q9":    
+        session['q8']=convertTofloat(answer)
+    elif intent=="q10":    
+        session['q9']=convertTofloat(answer)
+    elif intent=="q11":    
+        session['q10']=convertTofloat(answer)
+    elif intent=="q12":    
+        session['q11']=convertTofloat(answer)
+    elif intent=="q13":    
+        session['q12']=convertTofloat(answer)
+    elif intent=="q14":    
+        session['q13']=convertTofloat(answer)
+    elif intent=="q15":    
+        session['q14']=convertTofloat(answer)
+    elif intent=="q16":    
+        session['q15']=convertTofloat(answer)
+    elif intent=="q17":    
+        session['q16']=convertTofloat(answer)
+    elif intent=="q18":    
+        session['q17']=convertTofloat(answer)
+    elif intent=="q19":    
+        session['q18']=convertTofloat(answer)
+    elif intent=="q20":    
+        session['q19']=convertTofloat(answer)
+    elif intent=="q21":    
+        session['q20']=convertTofloat(answer)
+    elif intent=="q22":    
+        session['q21']=convertTofloat(answer)
+    elif intent=="q23":    
+        session['q22']=convertTofloat(answer)
+    elif intent=="q24":    
+        session['q23']=convertTofloat(answer)
+    elif intent=="q25":    
+        session['q24']=convertTofloat(answer)
+    elif intent=="q26":    
+        session['q25']=convertTofloat(answer)
+    elif intent=="q27":    
+        session['q26']=convertTofloat(answer)
+    elif intent=="q28":    
+        session['q27']=convertTofloat(answer)
+    elif intent=="q29":    
+        session['q28']=convertTofloat(answer)
+    elif intent=="q30":    
+        session['q29']=convertTofloat(answer)
+    elif intent=="q31":    
+        session['q30']=convertTofloat(answer)
+    elif intent=="q32":    
+        session['q31']=convertTofloat(answer)
+    elif intent=="q33":    
+        session['q32']=convertTofloat(answer)
+    elif intent=="q34":    
+        session['q33']=convertTofloat(answer)
+    elif intent=="q35":    
+        session['q34']=convertTofloat(answer)
+    elif intent=="q36":    
+        session['q35']=convertTofloat(answer)  
+    elif intent=="finale":    
+        session['q36']=convertTofloat(answer)
+        hdType=calcType()
+        session['hdType']=hdType    
+        #print(session['q1'],session['q4'],session['q6'],session['q8'],session['q10'],session['q12'],session['q3'])
+        
+        
+def chatControll(msg):
+    text_to_be_analyzed = msg
+    session_client = dialogflow.SessionsClient()
+    session = session_client.session_path(DIALOGFLOW_PROJECT_ID, SESSION_ID)
+    text_input = dialogflow.types.TextInput(text=text_to_be_analyzed, language_code=DIALOGFLOW_LANGUAGE_CODE)
+    query_input = dialogflow.types.QueryInput(text=text_input)
+    try:
+        response = session_client.detect_intent(session=session, query_input=query_input)
+    except InvalidArgument:
+        raise
+    
+    validateAnswers(response.query_result.intent.display_name,response.query_result.query_text)
+                
+    print("Query text:", response.query_result.query_text)
+    print("Detected intent:", response.query_result.intent.display_name)
+    print("Fulfillment text:", response.query_result.fulfillment_text)
+    
+    return response
+
+def calcType():    
+    val1=session['q1']   #converting text into float
+    val2=session['q2']
+    val3=session['q3']
+    val4=session['q4']
+    val5=session['q5']
+    val6=session['q6']
+    val7=session['q7']
+    val8=session['q8']
+    val9=session['q9']
+    val10=session['q10']
+    val11=session['q11']
+    val12=session['q12']
+    val13=session['q13']
+    val14=session['q14']
+    val15=session['q15']
+    val16=session['q16']
+    val17=session['q17']
+    val18=session['q18']
+    val19=session['q19']
+    val20=session['q20']
+    val21=session['q21']
+    val22=session['q22']
+    val23=session['q23']
+    val24=session['q24']
+    val25=session['q25']
+    val26=session['q26']
+    val27=session['q27']
+    val28=session['q28']
+    val29=session['q29']
+    val30=session['q30']
+    val31=session['q31']
+    val32=session['q32']
+    val33=session['q33']
+    val34=session['q34']
+    val35=session['q35']
+    val36=session['q36']   
+
+    algorithm=joblib.load('Type_of_the_Disease.sav')
+    #loading the trained algorithm
+    result=algorithm.predict([[val1,val2,val3,val4,val5,val6,val7,val8,val9,val10,val11,val12,val13,val14,val15,val16,val17,val18,val19,val20,val21,val22,val23,val24,val25,val26,val27,val28,val29,val30,val31,val32,val33,val34,val35,val36]])
+
+    return "Type of The Heart Disease:"+str(result[0])
+
+
+#codes for Image Proccessing
 def proccessImg(file):
 
    if request.method == 'POST':
@@ -280,7 +430,14 @@ def viewReports():
 @app.route("/patientHome")
 def patientHome():
     
-    return render_template('Dtree.html',result=session['name'])
+    cursor = mydb.cursor(buffered=True)
+    sql_select_query = "SELECT * FROM disease"
+    cursor.execute(sql_select_query)
+    record = cursor.fetchall()
+    if record:
+       return render_template('Dtree.html',result=record)
+    else:
+       return render_template('Dtree.html',result={{'test','test','test','test','test'},})
 
 @app.route('/diseasePatient') 
 def diseasePatient():    
@@ -300,8 +457,9 @@ def risk():
 
 @app.route('/chat') 
 def chat():    
-
-    return render_template('chatbot.html')
+    name=session['name'];
+    session['hdType']="no"
+    return render_template('chatbot.html',result=name)
 
 @app.route('/meal') 
 def meal():    
@@ -473,63 +631,13 @@ def saveRate():
         val = (email,r1,r2,r3)
         cursor.execute(sql, val)
         mydb.commit() 
-        return redirect(url_for('viewRates'))
-    
+        return redirect(url_for('viewRates'))    
 
-@app.route('/predict_dis',methods=['GET','POST']) 
-def predict_dis():    
-
-    data=request.form
-    val1=eval(data['v1'])   #converting text into float
-    val2=eval(data['v2'])
-    val3=eval(data['v3'])
-    val4=eval(data['v4'])
-    val5=eval(data['v5'])
-    val6=eval(data['v6'])
-    val7=eval(data['v7'])
-    val8=eval(data['v8'])
-    val9=eval(data['v9'])
-    val10=eval(data['v10'])
-    val11=eval(data['v11'])
-    val12=eval(data['v12'])
-    val13=eval(data['v13'])
-    val14=eval(data['v14'])
-    val15=eval(data['v15'])
-    val16=eval(data['v16'])
-    val17=eval(data['v17'])
-    val18=eval(data['v18'])
-    val19=eval(data['v19'])
-    val20=eval(data['v20'])
-    val21=eval(data['v21'])
-    val22=eval(data['v22'])
-    val23=eval(data['v23'])
-    val24=eval(data['v24'])
-    val25=eval(data['v25'])
-    val26=eval(data['v26'])
-    val27=eval(data['v27'])
-    val28=eval(data['v28'])
-    val29=eval(data['v29'])
-    val30=eval(data['v30'])
-    val31=eval(data['v31'])
-    val32=eval(data['v32'])
-    val33=eval(data['v33'])
-    val34=eval(data['v34'])
-    val35=eval(data['v35'])
-    val36=eval(data['v36'])
-    
-
-    algorithm=joblib.load('Type_of_the_Disease.sav')
-    #loading the trained algorithm
-    result=algorithm.predict([[val1,val2,val3,val4,val5,val6,val7,val8,val9,val10,val11,val12,val13,val14,val15,val16,val17,val18,val19,val20,val21,val22,val23,val24,val25,val26,val27,val28,val29,val30,val31,val32,val33,val34,val35,val36]])
-
-    #print(val1,val2,val3,val4,result)
-    return "Type of The Heart Disease:"+str(result[0])
 
 @app.route('/kalpana',methods = ['POST', 'GET'])
 def kalpana():
     
     model=load_model()
-    #User_json = request.json
     
     if request.method == 'POST':
       age = int(request.form['age'])
@@ -540,7 +648,6 @@ def kalpana():
       sbp = int(request.form['sbp'])
       img=request.files['image']
       img.save('output.PNG')
-      #print(img)
     tc,hdl=proccessImg('output.PNG')
     
     test_data=[gender,age,tc,hdl,sbp,smoke,med,dia]
@@ -549,7 +656,6 @@ def kalpana():
     
     test_data=scaler_x.transform([test_data])
     ped_result=model.predict(test_data)
-    #ped_result={'Risk Level':ped_result[0][0]}
     K.clear_session()
     
     value=ped_result[0][0]
@@ -563,9 +669,12 @@ def predict_mealPlan():
     data=request.form
     val1=eval(data['gender'])   #converting text into float
     val2=eval(data['age'])
-    val3=eval(data['bmi'])
     val4=eval(data['risk'])
-
+    hight=eval(data['hh'])
+    weight=eval(data['ww'])
+    
+    val3=weight/hight
+    
     algorithm=joblib.load('Meal_Plan_SVM_model.sav')
     #loading the trained algorithm
     result=algorithm.predict([[val1,val2,val3,val4]])
@@ -591,7 +700,6 @@ def predict_exercises():
 
     #print(val1,val2,val3,val4,result)
 
-    #return "PREDICTED MEAL PLAN:"+str(int(result[0]))
     ex=str(int(result[0]))
     img=ex+".png"
     return render_template("exercises.html",result =img)
@@ -599,24 +707,15 @@ def predict_exercises():
 #chatbot
 @app.route("/ask", methods=['POST','GET'])
 def ask():
-    
-    message = str(request.form['chatmessage'])
-    print(message)
-    text_to_be_analyzed = message
-    session_client = dialogflow.SessionsClient()
-    session = session_client.session_path(DIALOGFLOW_PROJECT_ID, SESSION_ID)
-    text_input = dialogflow.types.TextInput(text=text_to_be_analyzed, language_code=DIALOGFLOW_LANGUAGE_CODE)
-    query_input = dialogflow.types.QueryInput(text=text_input)
-    try:
-        response = session_client.detect_intent(session=session, query_input=query_input)
-    except InvalidArgument:
-        raise
         
-    print("Query text:", response.query_result.query_text)
-    print("Detected intent:", response.query_result.intent.display_name)
-    print("Detected intent confidence:", response.query_result.intent_detection_confidence)
-    print("Fulfillment text:", response.query_result.fulfillment_text)
-    return jsonify({'status':'OK','answer':response.query_result.fulfillment_text})     
+    message = str(request.form['chatmessage'])
+    response=chatControll(message)
+    if session['hdType'] == "no":
+        return jsonify({'status':'OK','answer':response.query_result.fulfillment_text})
+    else:
+        hdType=session['hdType']
+        return jsonify({'status':'OK','answer':hdType})
+    
         
 if __name__ == "__main__":
 	app.run(debug=True, use_reloader=False)
