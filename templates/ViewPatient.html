@@ -13,23 +13,23 @@
         <div class="contert-wrapper pb-15">
             <h1 class="title pb-20 pr-30" style="color:red;">List Patients</h1>
 <table class="table table-hover">
-    <thead class="info">
+     <thead class="info">
       <tr>
-        <th>Patient Ref No</th>
-        <th>Password</th>
+        <th>Email Address</th>
         <th>Name</th>
-        <th>Email</th>
+        <th>Gendar</th>
+        <th>Date of birth</th>
         <th>Mobile No</th>
       </tr>
     </thead>
     <tbody>
-     {% for value in result %}
+      {% for value in result %}
       <tr>
         <td>{{ value[0] }}</td>
-        <td>{{ value[1] }}</td>
         <td>{{ value[2] }}</td>
         <td>{{ value[3] }}</td>
         <td>{{ value[4] }}</td>
+        <td>{{ value[5] }}</td>
       </tr>
      {% endfor %}
     </tbody>

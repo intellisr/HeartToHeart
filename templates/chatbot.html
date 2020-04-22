@@ -73,7 +73,7 @@
 
         .frame {
             background: #e0e0de;
-            height: 450px;
+            height: 500px;
             overflow: hidden;
             padding: 0;
 
@@ -202,7 +202,8 @@
 
     var you = {};
     you.avatar = "https://p1.hiclipart.com/preview/873/269/230/swag-o-d-brand-icon-set-2-commes-red-heart-png-clipart.jpg";
-
+    
+    
     function formatAMPM(date) {
         var hours = date.getHours();
         var minutes = date.getMinutes();
@@ -214,7 +215,8 @@
         return strTime;
     }
     function pesanAwal(){
-        insertChat("you", "Hey there, What can i do for you?");
+        var res='{{result}}';
+        insertChat("you", "Hey "+res+",Can i ask you some quections?");
     }
     //-- No use time. It is a javaScript effect.
     function insertChat(who, text, time) {
@@ -268,6 +270,10 @@
                     $(this).val('');
                 }
                 else {
+                    var resx='{{hdtype}}';
+                    if ( resx != ''){        
+                        insertChat("bot",resx);
+                    }
                     insertChat("me", text);
                     $(this).val('');
                     $.ajax(
