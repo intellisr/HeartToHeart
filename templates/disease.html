@@ -2,7 +2,8 @@
 <html>
     <head>
     <link rel="stylesheet" href="{{ url_for('static', filename = 'css/dt.css') }}">
-    <script src="{{ url_for('static', filename = 'js/jquery-1.11.2.min.js') }}"></script> 
+    <script src="{{ url_for('static', filename = 'js/jquery-1.11.2.min.js') }}"></script>
+    <script src="{{ url_for('static', filename = 'js/jquery.validate.js') }}"></script>    
     </head>
     {% include 'nav_admin.html' %}
     
@@ -12,7 +13,7 @@
    <div class="container main-wrapper" style="max-height:50%;padding-top: 100px;">
      <div class="contert-wrapper pb-15">                
             <h1 class="title pb-20 pr-30" style="color:red;">Disease Manager</h1>
-             <form action ="http://localhost:5000/addDisease" method = "post" name="form">   
+             <form action ="http://localhost:5000/addDisease" method = "post" name="form" id="def">   
                                     <div class="row form-row">
                                         
                                         <div class="col-sm-4 ">
@@ -76,6 +77,25 @@
 </html>
 
 <script>
+
+$(document).ready(function () {
+
+    $('#def').validate({ // initialize the plugin
+        rules: {
+            did: {
+                required: true,
+            },
+            name: {
+                required: true,
+            },
+            symp: {
+                required: true,
+            },
+
+        }
+    });
+
+});
 
 function loadData(v1,v2,v3){
     $("#did").val(v1);
