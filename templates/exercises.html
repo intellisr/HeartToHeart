@@ -1,7 +1,8 @@
 
 <html>
     <head>
-    <script src="{{ url_for('static', filename = 'js/jquery-1.11.2.min.js') }}"></script> 
+    <script src="{{ url_for('static', filename = 'js/jquery-1.11.2.min.js') }}"></script>
+    <script src="{{ url_for('static', filename = 'js/jquery.validate.js') }}"></script>     
     </head>
     {% include 'nav_patient.html' %}
     
@@ -10,7 +11,7 @@
         <div class="container main-wrapper" style="max-width:40%; max-height:50%;padding-top: 100px;">
             <div class="contert-wrapper pb-15">
                 <h1 class="title pb-20 pr-30" style="color:red;">Exercises</h1>
-                <form action ="http://localhost:5000/predict_exercises" method = "post">
+                <form action ="http://localhost:5000/predict_exercises" method = "post" id="ex">
                             <div class="row form-row">    
                                         <div class="col-md-4 input-layout col-md-offset-2">
                                             <h4 class="title">Age</h4>
@@ -33,7 +34,7 @@
                             <div class="row form-row">    
                                         <div class="col-md-4 input-layout col-md-offset-2">
                                             <h4 class="title">Risk Level</h4>
-                                            <input type="float" class="" name="risk1" value="">
+                                            <input type="number" class="" name="risk1" value="">
                                         </div>                                        
                             </div> 
                 
@@ -55,4 +56,25 @@
     </body>
 </html>
 
+<script>
 
+$(document).ready(function () {
+
+    $('#ex').validate({ // initialize the plugin
+        rules: {
+            age1: {
+                required: true,
+            },
+            gender1: {
+                required: true,
+            },
+            risk1: {
+                required: true,
+            },
+
+        }
+    });
+
+});
+
+</script>

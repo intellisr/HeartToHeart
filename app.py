@@ -29,7 +29,7 @@ GOOGLE_APPLICATION_CREDENTIALS = 'heartbot-fretyc-d6ea36d86616.json'
 SESSION_ID = 'SRA123'
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"]=GOOGLE_APPLICATION_CREDENTIALS
 
-pytesseract.pytesseract.tesseract_cmd='C://Program Files/Tesseract-OCR/tesseract.exe'
+pytesseract.pytesseract.tesseract_cmd='C://Program Files (x86)/Tesseract-OCR/tesseract.exe'
 #from ruwanthi import proccessImg
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
@@ -195,24 +195,33 @@ def proccessImg(file):
    if request.method == 'POST':
 
         image = cv2.imread(file)
-        gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-        gray = cv2.threshold(gray, 0, 255,cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
-        #gray = cv2.medianBlur(gray, 3)
-
-        filename = "{}.png".format(' temp')
-        cv2.imwrite(filename, gray)
+        img = cv2.resize(image, None, fx=1.2, fy=1.2, interpolation=cv2.INTER_CUBIC)
+        img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        kernel = np.ones((1, 1), np.uint8)
+        img = cv2.dilate(img, kernel, iterations=1)
+        img = cv2.erode(img, kernel, iterations=1)
+        cv2.threshold(cv2.GaussianBlur(img, (5, 5), 0), 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+        
+        filename = "{}.png".format('temp')
+        cv2.imwrite(filename, img)
         text = pytesseract.image_to_string(cv2.imread(filename))
+        print(text)
         os.remove(filename)
 
-        TC=re.search(r'CHOLESTEROL(.*?)mg/dL',text).group(1)
+        TC=re.search(r'CHOLESTEROL(.*)mg/d',text).group(1)        
         TC=eval(re.findall("\d+\.\d+",TC)[0])
 
-        HDL=re.search(r'H.D.L(.*?)mg/dL', text).group(1)
+        HDL=re.search(r'(?:H.D.L|HDL)(.*?)mg/d', text).group(1)
         HDL=eval(re.findall("\d+\.\d+",HDL)[0])
+        
+        #checking canny
+        edges = cv2.Canny(img,100,200)
 
         # show the output images
-        cv2.imwrite("static/output-1.png", image)
-        cv2.imwrite("static/output-2.png", gray)
+        cv2.imwrite("images/original.png", image)
+        cv2.imwrite("images/preprocced.png", img)
+        cv2.imwrite("images/canny.png", edges)
+        
         return TC,HDL
     
 #kalpana
@@ -348,7 +357,7 @@ def addDisease():
     val = (did,name,symp)
     cursor.execute(sql, val)
     mydb.commit() 
-    return redirect(url_for('disease')),json.dumps({'status':'Success'});
+    return redirect(url_for('disease'));
 
 @app.route('/updateDisease',methods=['GET', 'POST']) 
 def updateDisease():    
@@ -650,9 +659,8 @@ def kalpana():
       img.save('output.PNG')
     tc,hdl=proccessImg('output.PNG')
     
+    print(tc," and ",hdl)
     test_data=[gender,age,tc,hdl,sbp,smoke,med,dia]
-
-    print(test_data)
     
     test_data=scaler_x.transform([test_data])
     ped_result=model.predict(test_data)

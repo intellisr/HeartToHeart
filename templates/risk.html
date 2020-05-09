@@ -1,7 +1,8 @@
 
 <html>
     <head>
-    <script src="{{ url_for('static', filename = 'js/jquery-1.11.2.min.js') }}"></script> 
+    <script src="{{ url_for('static', filename = 'js/jquery-1.11.2.min.js') }}"></script>
+         <script src="{{ url_for('static', filename = 'js/jquery.validate.js') }}"></script>       
     </head>
     {% include 'nav_patient.html' %}
     
@@ -11,7 +12,7 @@
             <div class="contert-wrapper pb-15">      
                 <h1 class="title pb-20 pr-30" style="color:red;">Risk Prediction</h1>
 
-            <form action ="http://localhost:5000/kalpana" method = "post" enctype = "multipart/form-data"> 
+            <form action ="http://localhost:5000/kalpana" method = "post" enctype ="multipart/form-data" id="risf"> 
                                     <div class="row form-row">    
                                         <div class="col-md-4 input-layout col-md-offset-2">
                                             <h4 class="title">Age</h4>
@@ -119,4 +120,28 @@
     </body>
 </html>
 
+<script>
 
+$(document).ready(function () {
+
+    $('#risf').validate({ // initialize the plugin
+        rules: {
+            age: {
+                required: true,
+            },
+            sbp: {
+                required: true,
+            },
+            name: {
+                required: true,
+            },
+            gender: {
+                required: true,
+            },
+
+        }
+    });
+
+});
+
+</script>
