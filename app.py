@@ -29,7 +29,7 @@ GOOGLE_APPLICATION_CREDENTIALS = 'heartbot-fretyc-d6ea36d86616.json'
 SESSION_ID = 'SRA123'
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"]=GOOGLE_APPLICATION_CREDENTIALS
 
-pytesseract.pytesseract.tesseract_cmd='C://Program Files (x86)/Tesseract-OCR/tesseract.exe'
+pytesseract.pytesseract.tesseract_cmd='C://Program Files/Tesseract-OCR/tesseract.exe'
 #from ruwanthi import proccessImg
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
