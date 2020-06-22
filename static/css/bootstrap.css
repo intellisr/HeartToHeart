@@ -4594,7 +4594,7 @@ fieldset[disabled] .navbar-default .btn-link:focus {
   color: #ccc;
 }
 .navbar-inverse {
-  background-color:#cc0000;
+  background-color:#2A4B7C;
   padding: 0 50px;
   position: fixed;
   width: 100%;
@@ -4604,7 +4604,7 @@ fieldset[disabled] .navbar-default .btn-link:focus {
    box-shadow: 0 8px 6px -6px #999;  
 }
 .navbar-inverse .navbar-brand {
-  color: #168ca8;
+  color: #2A4B7C;
 }
 .navbar-inverse .navbar-brand:hover,
 .navbar-inverse .navbar-brand:focus {
